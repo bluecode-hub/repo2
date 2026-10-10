@@ -1,0 +1,1152 @@
+{
+  "generated_at": "2026-10-10T13:38:26",
+  "sources": [
+    "compose",
+    ".env",
+    "depends_on",
+    "jaeger"
+  ],
+  "services": [
+    {
+      "name": "product-catalog",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "high",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "64M",
+      "status": "running",
+      "depends_on": [
+        "astronomy-db"
+      ],
+      "dependents": [
+        "checkout",
+        "frontend",
+        "recommendation"
+      ],
+      "inbound_calls": 622,
+      "traffic_share": 0.392,
+      "criticality_score": 4.96,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "cart",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "high",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "160M",
+      "status": "running",
+      "depends_on": [
+        "valkey-cart"
+      ],
+      "dependents": [
+        "checkout",
+        "frontend"
+      ],
+      "inbound_calls": 368,
+      "traffic_share": 0.232,
+      "criticality_score": 3.16,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "kafka",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "620M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "accounting",
+        "checkout",
+        "fraud-detection"
+      ],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 3,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "currency",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "high",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "20M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "checkout",
+        "frontend"
+      ],
+      "inbound_calls": 169,
+      "traffic_share": 0.106,
+      "criticality_score": 2.53,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "shipping",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "high",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "20M",
+      "status": "running",
+      "depends_on": [
+        "quote"
+      ],
+      "dependents": [
+        "checkout",
+        "frontend"
+      ],
+      "inbound_calls": 110,
+      "traffic_share": 0.069,
+      "criticality_score": 2.35,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "quote",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "40M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "frontend",
+        "shipping"
+      ],
+      "inbound_calls": 60,
+      "traffic_share": 0.038,
+      "criticality_score": 2.19,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "astronomy-db",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "80M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "accounting",
+        "product-catalog"
+      ],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 2,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "recommendation",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "medium",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "500M",
+      "status": "running",
+      "depends_on": [
+        "product-catalog"
+      ],
+      "dependents": [
+        "frontend"
+      ],
+      "inbound_calls": 56,
+      "traffic_share": 0.035,
+      "criticality_score": 1.18,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "ad",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "medium",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "300M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "frontend"
+      ],
+      "inbound_calls": 53,
+      "traffic_share": 0.033,
+      "criticality_score": 1.17,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "checkout",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "critical",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "64M",
+      "status": "running",
+      "depends_on": [
+        "cart",
+        "currency",
+        "email",
+        "kafka",
+        "payment",
+        "product-catalog",
+        "shipping"
+      ],
+      "dependents": [
+        "frontend"
+      ],
+      "inbound_calls": 50,
+      "traffic_share": 0.031,
+      "criticality_score": 1.16,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "email",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "medium",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "100M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "checkout"
+      ],
+      "inbound_calls": 50,
+      "traffic_share": 0.031,
+      "criticality_score": 1.16,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "payment",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "critical",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "200M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "checkout"
+      ],
+      "inbound_calls": 50,
+      "traffic_share": 0.031,
+      "criticality_score": 1.16,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "valkey-cart",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "20M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [
+        "cart"
+      ],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 1,
+      "single_point_of_failure": true
+    },
+    {
+      "name": "accounting",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "160M",
+      "status": "running",
+      "depends_on": [
+        "astronomy-db",
+        "kafka"
+      ],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "fraud-detection",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "300M",
+      "status": "running",
+      "depends_on": [
+        "kafka"
+      ],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "frontend",
+      "role": "app",
+      "chaos_target_allowed": true,
+      "declared_criticality": "critical",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "250M",
+      "status": "exited",
+      "depends_on": [
+        "ad",
+        "cart",
+        "checkout",
+        "currency",
+        "product-catalog",
+        "quote",
+        "recommendation",
+        "shipping"
+      ],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "flagd",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "75M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "flagd-ui",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "always",
+      "has_healthcheck": true,
+      "memory_limit": "200M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "frontend-proxy",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": "critical",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "90M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "grafana",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "500M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "image-provider",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "120M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "jaeger",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "1200M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "load-generator",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": "low",
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "1500M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "opamp-server",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "65M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "opensearch",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "1G",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "otel-collector",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "400M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "prometheus",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": false,
+      "memory_limit": "200M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    },
+    {
+      "name": "telemetry-docs",
+      "role": "infra",
+      "chaos_target_allowed": false,
+      "declared_criticality": null,
+      "replicas": 1,
+      "restart_policy": "unless-stopped",
+      "has_healthcheck": true,
+      "memory_limit": "100M",
+      "status": "running",
+      "depends_on": [],
+      "dependents": [],
+      "inbound_calls": 0,
+      "traffic_share": 0.0,
+      "criticality_score": 0,
+      "single_point_of_failure": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "accounting",
+      "to": "astronomy-db",
+      "source": "config",
+      "found_via": "env:DB_CONNECTION_STRING",
+      "calls": 0
+    },
+    {
+      "from": "accounting",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "accounting",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "ad",
+      "to": "flagd",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 1
+    },
+    {
+      "from": "ad",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "cart",
+      "to": "flagd",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 51
+    },
+    {
+      "from": "cart",
+      "to": "opamp-server",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "cart",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "cart",
+      "to": "valkey-cart",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "checkout",
+      "to": "cart",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 100
+    },
+    {
+      "from": "checkout",
+      "to": "currency",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 146
+    },
+    {
+      "from": "checkout",
+      "to": "email",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 50
+    },
+    {
+      "from": "checkout",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "checkout",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "checkout",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "checkout",
+      "to": "payment",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 50
+    },
+    {
+      "from": "checkout",
+      "to": "product-catalog",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 96
+    },
+    {
+      "from": "checkout",
+      "to": "shipping",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 100
+    },
+    {
+      "from": "currency",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "email",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "env:FLAGD_HOST",
+      "calls": 0
+    },
+    {
+      "from": "email",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "flagd",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_EXPORTER_OTLP_ENDPOINT",
+      "calls": 0
+    },
+    {
+      "from": "flagd-ui",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "flagd-ui",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "fraud-detection",
+      "to": "flagd",
+      "source": "both",
+      "found_via": "env:FLAGD_HOST",
+      "calls": 1
+    },
+    {
+      "from": "fraud-detection",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "fraud-detection",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "ad",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 53
+    },
+    {
+      "from": "frontend",
+      "to": "cart",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 268
+    },
+    {
+      "from": "frontend",
+      "to": "checkout",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 50
+    },
+    {
+      "from": "frontend",
+      "to": "currency",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 23
+    },
+    {
+      "from": "frontend",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "image-provider",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "product-catalog",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 470
+    },
+    {
+      "from": "frontend",
+      "to": "quote",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "recommendation",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 56
+    },
+    {
+      "from": "frontend",
+      "to": "shipping",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 10
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "env:FLAGD_HOST",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "flagd-ui",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "frontend",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 496
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "grafana",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "image-provider",
+      "source": "both",
+      "found_via": "env:IMAGE_PROVIDER_HOST",
+      "calls": 27
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "jaeger",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "load-generator",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "opamp-server",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_COLLECTOR_HOST",
+      "calls": 0
+    },
+    {
+      "from": "frontend-proxy",
+      "to": "telemetry-docs",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend-web",
+      "to": "frontend-proxy",
+      "source": "traffic",
+      "found_via": "jaeger",
+      "calls": 55
+    },
+    {
+      "from": "image-provider",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "jaeger",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_COLLECTOR_HOST",
+      "calls": 0
+    },
+    {
+      "from": "jaeger",
+      "to": "prometheus",
+      "source": "config",
+      "found_via": "env:PROMETHEUS_ADDR",
+      "calls": 0
+    },
+    {
+      "from": "kafka",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_EXPORTER_OTLP_ENDPOINT",
+      "calls": 0
+    },
+    {
+      "from": "load-generator",
+      "to": "flagd",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 7
+    },
+    {
+      "from": "load-generator",
+      "to": "frontend",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "load-generator",
+      "to": "frontend-proxy",
+      "source": "both",
+      "found_via": "env:LOCUST_HOST",
+      "calls": 298
+    },
+    {
+      "from": "load-generator",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_EXPORTER_OTLP_ENDPOINT",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "astronomy-db",
+      "source": "config",
+      "found_via": "env:POSTGRES_HOST",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "frontend-proxy",
+      "source": "config",
+      "found_via": "env:FRONTEND_PROXY_ADDR",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "image-provider",
+      "source": "config",
+      "found_via": "env:IMAGE_PROVIDER_HOST",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "jaeger",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "env:KAFKA_ADDR",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "opamp-server",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "otel-collector",
+      "to": "opensearch",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "payment",
+      "to": "flagd",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 4
+    },
+    {
+      "from": "payment",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "product-catalog",
+      "to": "astronomy-db",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "product-catalog",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "product-catalog",
+      "to": "opamp-server",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "product-catalog",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "quote",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "recommendation",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "recommendation",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "recommendation",
+      "to": "product-catalog",
+      "source": "both",
+      "found_via": "depends_on",
+      "calls": 56
+    },
+    {
+      "from": "shipping",
+      "to": "flagd",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "shipping",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "shipping",
+      "to": "quote",
+      "source": "both",
+      "found_via": "env:QUOTE_ADDR",
+      "calls": 60
+    },
+    {
+      "from": "telemetry-docs",
+      "to": "otel-collector",
+      "source": "config",
+      "found_via": "env:OTEL_COLLECTOR_HOST",
+      "calls": 0
+    }
+  ],
+  "hidden_dependencies": [],
+  "declared_but_unused": [
+    {
+      "from": "cart",
+      "to": "valkey-cart",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "checkout",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "frontend",
+      "to": "quote",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "product-catalog",
+      "to": "astronomy-db",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "accounting",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    },
+    {
+      "from": "accounting",
+      "to": "astronomy-db",
+      "source": "config",
+      "found_via": "env:DB_CONNECTION_STRING",
+      "calls": 0
+    },
+    {
+      "from": "fraud-detection",
+      "to": "kafka",
+      "source": "config",
+      "found_via": "depends_on",
+      "calls": 0
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "recorded_at": "2026-10-10T12:35:48",
+  "duration_s": 89,
+  "samples": 83,
+  "prometheus_window": "2m",
+  "overall": {
+    "probe_error_rate": 0.0,
+    "worst_probe_p95_ms": 63.8
+  },
+  "probes": {
+    "home": {
+      "success_rate": 1.0,
+      "avg_ms": 20.7,
+      "p50_ms": 15.7,
+      "p95_ms": 26.6,
+      "healthy_max_ms": 253
+    },
+    "products": {
+      "success_rate": 1.0,
+      "avg_ms": 24.3,
+      "p50_ms": 19.7,
+      "p95_ms": 32.8,
+      "healthy_max_ms": 266
+    },
+    "cart": {
+      "success_rate": 1.0,
+      "avg_ms": 24.0,
+      "p50_ms": 18.0,
+      "p95_ms": 31.9,
+      "healthy_max_ms": 264
+    },
+    "recommendations": {
+      "success_rate": 1.0,
+      "avg_ms": 39.8,
+      "p50_ms": 31.2,
+      "p95_ms": 63.8,
+      "healthy_max_ms": 328
+    },
+    "ads": {
+      "success_rate": 1.0,
+      "avg_ms": 22.4,
+      "p50_ms": 16.6,
+      "p95_ms": 29.6,
+      "healthy_max_ms": 259
+    }
+  },
+  "services": {
+    "ad": {
+      "avg_rps": 0.69,
+      "avg_error_rate": 0.0,
+      "p95_ms": 3.7,
+      "healthy_max_error_rate": 0.05
+    },
+    "cart": {
+      "avg_rps": 2.0,
+      "avg_error_rate": 0.0,
+      "p95_ms": 2.0,
+      "healthy_max_error_rate": 0.05
+    },
+    "checkout": {
+      "avg_rps": 0.06,
+      "avg_error_rate": 0.0,
+      "p95_ms": 87.5,
+      "healthy_max_error_rate": 0.05
+    },
+    "currency": {
+      "avg_rps": 0.92,
+      "avg_error_rate": 0.0,
+      "p95_ms": 1.9,
+      "healthy_max_error_rate": 0.05
+    },
+    "email": {
+      "avg_rps": 0.06,
+      "avg_error_rate": 0.0,
+      "p95_ms": 5.8,
+      "healthy_max_error_rate": 0.05
+    },
+    "frontend": {
+      "avg_rps": 18.93,
+      "avg_error_rate": 0.0,
+      "p95_ms": 38.9,
+      "healthy_max_error_rate": 0.05
+    },
+    "payment": {
+      "avg_rps": 0.06,
+      "avg_error_rate": 0.0,
+      "p95_ms": 1.9,
+      "healthy_max_error_rate": 0.05
+    },
+    "product-catalog": {
+      "avg_rps": 7.3,
+      "avg_error_rate": 0.0,
+      "p95_ms": 10.9,
+      "healthy_max_error_rate": 0.05
+    },
+    "quote": {
+      "avg_rps": 0.23,
+      "avg_error_rate": 0.0,
+      "p95_ms": 1.9,
+      "healthy_max_error_rate": 0.05
+    },
+    "recommendation": {
+      "avg_rps": 1.15,
+      "avg_error_rate": 0.0,
+      "p95_ms": 5.1,
+      "healthy_max_error_rate": 0.05
+    },
+    "shipping": {
+      "avg_rps": 0.29,
+      "avg_error_rate": 0.0,
+      "p95_ms": 30.0,
+      "healthy_max_error_rate": 0.05
+    }
+  },
+  "containers": {
+    "accounting": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "ad": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "astronomy-db": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "cart": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "checkout": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "currency": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "email": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "fraud-detection": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "frontend": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "kafka": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "payment": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "product-catalog": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "quote": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "recommendation": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "shipping": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    },
+    "valkey-cart": {
+      "running_ratio": 1.0,
+      "restarts_at_end": 0
+    }
+  },
+  "suggested_thresholds": {
+    "max_probe_error_rate": 0.5,
+    "max_probe_latency_ms": 3000,
+    "max_duration_s": 60,
+    "recovery_timeout_s": 120
+  },
+  "warnings": []
+}

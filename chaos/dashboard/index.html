@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>chaos-observability</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div class="brand-name">chaos-observability</div>
+    <div class="brand-sub">opentelemetry-demo / astronomy-shop</div>
+  </div>
+  <div class="status-cluster">
+    <span class="updated-at" id="updated-at"></span>
+    <div class="status-pill ok" id="health-pill"><span class="dot"></span><span id="health-text">checking</span></div>
+  </div>
+</div>
+
+<div class="tabnav">
+  <button class="tab-btn active" data-tab="graph">
+    <svg class="tab-icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7l3 9M16 7l-3 9M8.5 6h7"/></svg>
+    dependency map
+  </button>
+  <button class="tab-btn" data-tab="insights">
+    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M4 4v16h16M8 15l3-4 3 2 4-6"/></svg>
+    prometheus insights
+  </button>
+  <button class="tab-btn" data-tab="traces">
+    <svg class="tab-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="12" height="4" rx="1"/><rect x="3" y="16" width="15" height="4" rx="1"/></svg>
+    agent traces
+    <span class="tab-count" id="trace-count">0</span>
+  </button>
+  <button class="tab-btn" data-tab="impact">
+    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+    baseline vs injection
+    <span class="tab-count" id="impact-count">0</span>
+  </button>
+  <button class="tab-btn" data-tab="logs">
+    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M4 17l5-5-5-5M12 19h8"/></svg>
+    live log
+  </button>
+</div>
+
+<div class="panel active" id="panel-graph">
+  <div id="graph-wrap">
+    <div id="cy"></div>
+    <div id="node-detail"></div>
+    <div class="graph-hud">
+      <div class="hud-stat"><div class="hud-num" id="hud-services">-</div><div class="hud-label">services</div></div>
+      <div class="hud-stat"><div class="hud-num" id="hud-spof">-</div><div class="hud-label">spof</div></div>
+      <div class="hud-stat"><div class="hud-num" id="hud-edges">-</div><div class="hud-label">edges</div></div>
+    </div>
+    <div class="graph-legend">
+      <div class="legend-title">criticality</div>
+      <div class="legend-row"><span class="legend-swatch" style="border-color:#D13B32;background:rgba(209,59,50,0.1)"></span><span class="legend-label">critical</span></div>
+      <div class="legend-row"><span class="legend-swatch" style="border-color:#B9790F;background:rgba(185,121,15,0.1)"></span><span class="legend-label">high</span></div>
+      <div class="legend-row"><span class="legend-swatch" style="border-color:#7E97AF;background:rgba(126,151,175,0.14)"></span><span class="legend-label">medium</span></div>
+      <div class="legend-row"><span class="legend-swatch" style="border-color:#9A9183;background:rgba(154,145,131,0.1)"></span><span class="legend-label">low</span></div>
+      <div class="legend-row"><span class="legend-swatch" style="border-color:#E8206F;background:transparent;border-style:dashed"></span><span class="legend-label">single point of failure</span></div>
+      <div class="legend-note">arrow number = real call count seen in Jaeger traces (last 20 min)</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-insights">
+  <div id="insights-panel"></div>
+</div>
+
+<div class="panel" id="panel-traces">
+  <div id="traces-panel"></div>
+</div>
+
+<div class="panel" id="panel-impact">
+  <div id="impact-controls">
+    <select id="target-select"><option value="">loading targets...</option></select>
+    <select id="fault-select">
+      <option value="">auto (planner picks based on SPOF)</option>
+      <option value="crash">crash</option>
+      <option value="failed_dependency">failed_dependency</option>
+    </select>
+    <button id="run-btn" class="ctl-btn primary">run experiment</button>
+    <button id="reset-btn" class="ctl-btn">reset for clean run</button>
+    <span id="run-status" class="run-status"></span>
+  </div>
+  <div id="impact-panel"></div>
+</div>
+
+<div class="panel" id="panel-logs">
+  <div id="logs-panel"></div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
