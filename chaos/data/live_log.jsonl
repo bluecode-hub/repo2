@@ -1,30 +1,15 @@
-{"ts": 1791624809.9254735, "level": "info", "message": "=== Day-1 pipeline starting ==="}
-{"ts": 1791624809.94054, "level": "info", "message": "capturing baseline conditions (pre-injection steady state)"}
-{"ts": 1791624810.5825737, "level": "info", "message": "baseline stored: probe_error_rate=0.0% probe_max_ms=46ms services_tracked=11"}
-{"ts": 1791624810.588922, "level": "info", "message": "planner: selecting target and fault type from the dependency map (manual override: product-catalog/crash)"}
-{"ts": 1791624810.5999353, "level": "info", "message": "planner decided: target=product-catalog fault=crash"}
-{"ts": 1791624810.606434, "level": "info", "message": "planner reasoning: manually selected by the operator (not auto-ranked). product-catalog has criticality_score=4.96, single_point_of_failure=True, traffic_share=0.392. kill the container outright (SIGKILL) -- simulates a hard service/container crash."}
-{"ts": 1791624810.611177, "level": "info", "message": "injector: applying 'crash' to 'product-catalog' (kill the container outright (SIGKILL) -- simulates a hard service/container crash)"}
-{"ts": 1791624812.5032105, "level": "info", "message": "injector: fault active -- {'mechanism': 'docker kill'}"}
-{"ts": 1791624815.1289334, "level": "info", "message": "watchdog t=2.6s: FAIL(failing probes: products, recommendations; containers not running: product-catalog)"}
-{"ts": 1791624815.1299596, "level": "warn", "message": "KILL SWITCH: failing probes: products, recommendations; containers not running: product-catalog -- restoring product-catalog now"}
-{"ts": 1791624816.120957, "level": "info", "message": "injector: product-catalog restored (crash undone)"}
-{"ts": 1791624823.522462, "level": "info", "message": "recovery: 7.4s"}
-{"ts": 1791624824.1067808, "level": "info", "message": "analyst: summarizing observed impact"}
-{"ts": 1791624824.1113648, "level": "info", "message": "analyst: Injecting crash into product-catalog was caught and rolled back by the safety watchdog (failing probes: products, recommendations; containers not running: product-catalog). Probe error rate moved 0.0% -> 40.0%, slowest probe latency moved 33ms -> 42ms. System recovered in 7.4s after restore."}
-{"ts": 1791624824.1166987, "level": "info", "message": "=== Day-1 pipeline complete: product-catalog / crash / ABORTED ==="}
-{"ts": 1791624997.7419705, "level": "info", "message": "=== Day-1 pipeline starting ==="}
-{"ts": 1791624997.7626553, "level": "info", "message": "capturing baseline conditions (pre-injection steady state)"}
-{"ts": 1791624998.3914711, "level": "info", "message": "baseline stored: probe_error_rate=0.0% probe_max_ms=76ms services_tracked=11"}
-{"ts": 1791624998.3979142, "level": "info", "message": "planner: selecting target and fault type from the dependency map (manual override: product-catalog/crash)"}
-{"ts": 1791624998.4097164, "level": "info", "message": "planner decided: target=product-catalog fault=crash"}
-{"ts": 1791624998.4102862, "level": "info", "message": "planner reasoning: manually selected by the operator (not auto-ranked). product-catalog has criticality_score=4.96, single_point_of_failure=True, traffic_share=0.392. kill the container outright (SIGKILL) -- simulates a hard service/container crash."}
-{"ts": 1791624998.413729, "level": "info", "message": "injector: applying 'crash' to 'product-catalog' (kill the container outright (SIGKILL) -- simulates a hard service/container crash)"}
-{"ts": 1791624999.5820215, "level": "info", "message": "injector: fault active -- {'mechanism': 'docker kill'}"}
-{"ts": 1791625002.1461372, "level": "info", "message": "watchdog t=2.6s: FAIL(failing probes: products, recommendations; containers not running: product-catalog)"}
-{"ts": 1791625002.146499, "level": "warn", "message": "KILL SWITCH: failing probes: products, recommendations; containers not running: product-catalog -- restoring product-catalog now"}
-{"ts": 1791625003.943188, "level": "info", "message": "injector: product-catalog restored (crash undone)"}
-{"ts": 1791625013.6617026, "level": "info", "message": "recovery: 9.72s"}
-{"ts": 1791625014.2613702, "level": "info", "message": "analyst: summarizing observed impact"}
-{"ts": 1791625014.2651403, "level": "info", "message": "analyst: Injecting crash into product-catalog was caught and rolled back by the safety watchdog (failing probes: products, recommendations; containers not running: product-catalog). Probe error rate moved 0.0% -> 40.0%, slowest probe latency moved 52ms -> 35ms. System recovered in 9.72s after restore."}
-{"ts": 1791625014.2709272, "level": "info", "message": "=== Day-1 pipeline complete: product-catalog / crash / ABORTED ==="}
+{"ts": 1791627303.6398873, "level": "info", "message": "=== Day-1 pipeline starting ==="}
+{"ts": 1791627303.6533442, "level": "info", "message": "capturing baseline conditions (pre-injection steady state)"}
+{"ts": 1791627304.3571656, "level": "info", "message": "baseline stored: probe_error_rate=0.0% probe_max_ms=241ms services_tracked=11"}
+{"ts": 1791627304.360474, "level": "info", "message": "planner: selecting target and fault type from the dependency map (manual override: product-catalog/crash)"}
+{"ts": 1791627304.368179, "level": "info", "message": "planner decided: target=product-catalog fault=crash"}
+{"ts": 1791627304.3712144, "level": "info", "message": "planner reasoning: manually selected by the operator (not auto-ranked). product-catalog has criticality_score=4.96, single_point_of_failure=True, traffic_share=0.392. kill the container outright (SIGKILL) -- simulates a hard service/container crash."}
+{"ts": 1791627304.3736787, "level": "info", "message": "injector: applying 'crash' to 'product-catalog' (kill the container outright (SIGKILL) -- simulates a hard service/container crash)"}
+{"ts": 1791627305.8229623, "level": "info", "message": "injector: fault active -- {'mechanism': 'docker kill'}"}
+{"ts": 1791627308.533816, "level": "info", "message": "watchdog t=2.7s: FAIL(failing probes: products, recommendations; containers not running: product-catalog)"}
+{"ts": 1791627308.5350778, "level": "warn", "message": "KILL SWITCH: failing probes: products, recommendations; containers not running: product-catalog -- restoring product-catalog now"}
+{"ts": 1791627309.2061415, "level": "info", "message": "injector: product-catalog restored (crash undone)"}
+{"ts": 1791627316.6437118, "level": "info", "message": "recovery: 7.44s"}
+{"ts": 1791627317.3202672, "level": "info", "message": "analyst: summarizing observed impact"}
+{"ts": 1791627317.3250098, "level": "info", "message": "analyst: Injecting crash into product-catalog was caught and rolled back by the safety watchdog (failing probes: products, recommendations; containers not running: product-catalog). Probe error rate moved 0.0% -> 40.0%, slowest probe latency moved 40ms -> 28ms. System recovered in 7.44s after restore."}
+{"ts": 1791627317.3338313, "level": "info", "message": "=== Day-1 pipeline complete: product-catalog / crash / ABORTED ==="}

@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+hs_err_pid*.log
+node_modules/
+.DS_Store
+*.log
+!chaos/data/live_log.jsonl
+.env
+.env.*
+
